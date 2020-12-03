@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func readLines(filePath string) []string {
@@ -89,9 +90,11 @@ func part2(passwordList []string) int {
 
 func main() {
 	passwords := readLines("../input/day2.txt")
+	startTime := time.Now()
 	part1Count := part1(passwords)
-	fmt.Println("Part 1: ", part1Count)
+	fmt.Println("Level 2:", part1Count, "Took:", time.Since(startTime))
 
+	startTime = time.Now()
 	part2Count := part2(passwords)
-	fmt.Println("Part 2: ", part2Count)
+	fmt.Println("Level 2:", part2Count, "Took:", time.Since(startTime))
 }
