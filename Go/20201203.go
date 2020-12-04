@@ -50,7 +50,6 @@ func calcTrees(slopeMap []string, steps [2]int) int {
 
 func main() {
 	slopeMap := readFile("../input/day3.txt")
-	fmt.Println(slopeMap[0])
 	steps := [2]int{1, 3}
 
 	start := time.Now()
