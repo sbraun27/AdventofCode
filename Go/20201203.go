@@ -24,7 +24,7 @@ func readFile(fileName string) []string {
 	return lines
 }
 
-func calcTrees(slopeMap []string, steps []int) int {
+func calcTrees(slopeMap []string, steps [2]int) int {
 	column := 0
 	targetCol := 0
 	rowLength := len(slopeMap[0])
@@ -51,7 +51,7 @@ func calcTrees(slopeMap []string, steps []int) int {
 func main() {
 	slopeMap := readFile("../input/day3.txt")
 	fmt.Println(slopeMap[0])
-	steps := []int{1, 3}
+	steps := [2]int{1, 3}
 
 	start := time.Now()
 	part1Result := calcTrees(slopeMap, steps)
@@ -59,7 +59,13 @@ func main() {
 
 	part2Results := 1
 
-	part2Steps := [][]int{[]int{1, 1}, []int{1, 3}, []int{1, 5}, []int{1, 7}, []int{2, 1}}
+	part2Steps := [5][2]int{
+		{1, 1},
+		{1, 3},
+		{1, 5},
+		{1, 7},
+		{2, 1},
+	}
 
 	start = time.Now()
 	for _, steps := range part2Steps {
