@@ -47,5 +47,3 @@ if __name__ == "__main__":
     your_seat = find_missing_seat(seat_ids)
     elapsed = round(time.time() - start, 3)
     print(f"Your seat is: {your_seat}. Part 2 took: {elapsed} seconds.")
-    import ipdb
-    ipdb.set_trace()
