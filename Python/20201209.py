@@ -16,17 +16,15 @@ def part1(input_list, start_number):
 
 
 def part2(input_list, target):
-    set_found = False
-    while not set_found:
-        # Determine the current set length
-        for i in range(2, len(input_list)):
-            # Determine the starting index
-            for j in range(len(input_list) - i):
-                target_set = input_list[j:j+i]
-                if sum(target_set) == target:
-                    minimum = min(target_set)
-                    maximum = max(target_set)
-                    return minimum + maximum
+    # Determine the current set length
+    for i in range(2, len(input_list)):
+        # Determine the starting index
+        for j in range(len(input_list) - i):
+            target_set = input_list[j:j+i]
+            if sum(target_set) == target:
+                minimum = min(target_set)
+                maximum = max(target_set)
+                return minimum + maximum
 
 
 if __name__ == "__main__":
