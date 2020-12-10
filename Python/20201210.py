@@ -1,6 +1,3 @@
-import time
-
-
 def part1(input_file, current_jolt=0):
     input_file.sort()
 
