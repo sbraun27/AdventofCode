@@ -13,7 +13,7 @@ def find_lowest_wait(leave_time, ID_list):
 
 
 def find_lowest_subsequent_times(ID_list):
-    ts = 0
+    ts = 100000000000000
     lcm = 1
     for start, step in ID_list:
         while(ts + start) % step != 0:
