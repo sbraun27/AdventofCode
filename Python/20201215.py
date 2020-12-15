@@ -1,7 +1,7 @@
 import time
 
 
-def part1(puzzle_input, no_idx=2020):
+def get_last_number(puzzle_input, no_idx=2020):
     spoken = {number: [i+1] for i, number in enumerate(puzzle_input)}
 
     i = len(puzzle_input) + 1
@@ -29,11 +29,11 @@ if __name__ == "__main__":
     puzzle_input = [0, 8, 15, 2, 12, 1, 4]
 
     start = time.time()
-    part1_result = part1(puzzle_input)
+    part1_result = get_last_number(puzzle_input, no_idx=2020)
     elapsed = round(time.time() - start, 3)
     print(f"Part 1 answer: {part1_result}. Took: {elapsed} seconds.")
 
     start = time.time()
-    part2_result = part1(puzzle_input, no_idx=30000000)
+    part2_result = get_last_number(puzzle_input, no_idx=30000000)
     elapsed = round(time.time() - start, 3)
     print(f"Part 2 answer: {part2_result}. Took: {elapsed} seconds.")
