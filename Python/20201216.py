@@ -52,7 +52,7 @@ def part1(input_dict):
     for ticket in to_remove:
         input_dict["nearby tickets"].remove(ticket)
 
-    return sum(part1_result), input_dict
+    return sum(part1_result)
 
 
 def part2(input_dict):
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     input_dict = parse_to_dict(input_list)
 
     start = time.time()
-    part1_result, input_dict = part1(input_dict)
+    part1_result = part1(input_dict)
     elapsed = round(time.time() - start, 3)
     print(f"Part 1 result: {part1_result}. Took {elapsed} seconds.")
 
