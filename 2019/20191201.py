@@ -2,24 +2,23 @@ import time
 
 
 def part1(input_file):
-    fuel = [int(i)//3 - 2 for i in input_file]
-
-    return sum(fuel)
+    return sum([int(i)//3 - 2 for i in input_file])
 
 
 def part2(input_file):
-    results = []
+    results = 0
     for module in input_file:
-        fuel = [int(module)//3-2]
+        fuel = int(module)//3 - 2
+        results += fuel
+        fuel_needed = fuel // 3 - 2
         while True:
-            required_fuel = fuel[-1]//3-2
-            if required_fuel <= 0:
+            if fuel_needed <= 0:
                 break
             else:
-                fuel.append(required_fuel)
-        results.append(sum(fuel))
+                results += fuel_needed
+                fuel_needed = fuel_needed // 3 - 2
 
-    return sum(results)
+    return results
 
 
 if __name__ == "__main__":
