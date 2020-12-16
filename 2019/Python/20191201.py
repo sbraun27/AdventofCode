@@ -22,7 +22,7 @@ def part2(input_file):
 
 
 if __name__ == "__main__":
-    with open("day1.txt") as f:
+    with open("../input/day1.txt") as f:
         input_file = f.read().splitlines()
 
     start = time.time()
