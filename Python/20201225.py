@@ -14,7 +14,7 @@ def find_loop_size(public_key, subject_num=7):
 
 def find_encryption_key(subject_number, loop_size):
     value = 1
-    for loop in range(loop_size):
+    for _ in range(loop_size):
         value = value * subject_number
         value = value % 20201227
 
@@ -25,10 +25,10 @@ if __name__ == "__main__":
     card_public_key = 8184785
     door_public_key = 5293040
 
+    start = time.time()
     card_loop_size = find_loop_size(card_public_key)
     door_loop_size = find_loop_size(door_public_key)
-
     part1 = find_encryption_key(card_public_key, door_loop_size)
+    elapsed = round(time.time() - start, 3)
 
-    import ipdb
-    ipdb.set_trace()
+    print(f"Part 1: {part1}. Took: {elapsed} seconds.")
