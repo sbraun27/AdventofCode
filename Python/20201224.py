@@ -1,18 +1,20 @@
 import re
 from functools import reduce
 from collections import defaultdict
+import time
 
-BLACK, WHITE = 1, 0
 
-DIRECTIONS = {
-    'e': (1, 0),
-    'w': (-1, 0),
-    'se': (0.5, -1),
-    'sw': (-0.5, -1),
-    'ne': (0.5, 1),
-    'nw': (-0.5, 1)}
+black_indicator, white_indicator = 1, 0
 
-NEIGHBORS = DIRECTIONS.values()
+direction_map = {
+    "e": (1, 0),
+    "w": (-1, 0),
+    "se": (0.5, -1),
+    "sw": (-0.5, -1),
+    "ne": (0.5, 1),
+    "nw": (-0.5, 1)}
+
+neighbor_directions = direction_map.values()
 
 
 def add(coord1, coord2):
@@ -20,12 +22,10 @@ def add(coord1, coord2):
 
 
 def final_coord(steps):
-    """return coord after following STEPS from origin"""
     return reduce(add, steps, (0, 0))
 
 
 def get_initial_state(moves):
-    """return initial BLACK/WHITE tiles"""
     tiles = defaultdict(int)
     for tile in [final_coord(steps) for steps in moves]:
         tiles[tile] = (tiles[tile] + 1) % 2
@@ -33,50 +33,50 @@ def get_initial_state(moves):
 
 
 def num_black_neighbors(tile, tiles):
-    """return colors of all six neighbors of TILE"""
-    return sum([tiles[add(tile, step)] for step in NEIGHBORS])
+    return sum([tiles[add(tile, step)] for step in neighbor_directions])
 
 
-def get_all_neighbor_coords(tiles):
-    """return all coordinats adjacent to any existing tile"""
-    return [add(tile, neighbor) for tile in tiles for neighbor in NEIGHBORS]
+def find_neighbors(tiles):
+    return [add(tile, neighbor) for tile in tiles for neighbor in neighbor_directions]
 
 
-def update_tile(tile, color, tiles):
-    """return new state BLACK/WHITE of given tile"""
-    if color == BLACK:
+def change_tile(tile, color, tiles):
+    if color == black_indicator:
         return num_black_neighbors(tile, tiles) in [1, 2]
-    if color == WHITE:
+    if color == white_indicator:
         return num_black_neighbors(tile, tiles) == 2
 
 
 def update_floor(tiles):
-    """returns tiles after update step"""
     new_tiles = defaultdict(int)
 
-    # add all neighbors, because they may have to flip
     new_tiles.update({
-        **dict.fromkeys(get_all_neighbor_coords(tiles), 0),
+        **dict.fromkeys(find_neighbors(tiles), 0),
         **tiles})
 
-    # check update conditions
     for tile, color in new_tiles.items():
-        new_tiles[tile] = update_tile(tile, color, tiles)
+        new_tiles[tile] = change_tile(tile, color, tiles)
 
     return new_tiles
 
 
-def evolve(tiles, epochs):
-    """return state of floor after EPOCHS iterations"""
-    for _ in range(epochs):
+def update_floor_days(tiles, days):
+    for _ in range(days):
         tiles = update_floor(tiles)
     return tiles
 
 
-with open('../input/day24.txt') as f:
-    moves = [[DIRECTIONS[d] for d in re.findall('(se|sw|ne|nw|e|w)', line)]
+with open("../input/day24.txt") as f:
+    moves = [[direction_map[d] for d in re.findall("(se|sw|ne|nw|e|w)", line)]
              for line in f.read().splitlines()]
 
     tiles = get_initial_state(moves)
-    print('part 1:', sum(tiles.values()))
-    print('part 2:', sum(evolve(tiles, 100).values()))
+    start = time.time()
+    part1 = sum(tiles.values())
+    elapsed = round(time.time() - start, 3)
+    print(f"Part 1: {part1}. Took: {elapsed} seconds.")
+
+    start = time.time()
+    part2 = sum(update_floor_days(tiles, 100).values())
+    elapsed = round(time.time() - start, 3)
+    print(f"Part 2: {part2}. Took: {elapsed} seconds.")
